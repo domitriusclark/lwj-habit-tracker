@@ -1,0 +1,8 @@
+{
+  "name": "lwj-habit-tracker-party",
+  "main": "party/index.ts",
+  "parties": {    
+    "cursors": "party/cursors.ts"    
+  },
+  "compatibilityDate": "2023-10-08"
+}
