@@ -1,8 +1,8 @@
 "use client";
 
 import { useCursors } from "./cursors-provider";
-import OtherCursor from "./OtherCursor";
-import MyCursor from "./MyCursor";
+import OtherCursor from "./other-cursor";
+import MyCursor from "./my-cursor";
 
 export default function Cursors() {
   const { others } = useCursors();
