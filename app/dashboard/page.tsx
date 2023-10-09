@@ -2,6 +2,7 @@ import { getUser } from "@/actions/auth";
 import { redirect } from "next/navigation";
 import db from "@/lib/database";
 
+import Link from "next/link";
 import SignOutButton from "@/components/sign-out-button";
 
 const days = [
@@ -21,7 +22,11 @@ export default async function Dashboard() {
     redirect("/sign-in");
   }
 
-  const getEntries = async () => {};
+  const entries = await db
+    .selectFrom("poop_log_entries")
+    .selectAll()
+    .where("owner_id", "=", user.id)
+    .execute();
 
   return (
     <div className="flex flex-col pt-10 m-6">
@@ -53,8 +58,20 @@ export default async function Dashboard() {
           return (
             <div className="p-4 rounded-lg bg-gray-800 text-center">
               <h3 className="text-white">{day}</h3>
+              {entries.length > 0 &&
+                entries.map((entry) => {
+                  if (entry.day_of_week === day) {
+                    return (
+                      <div>
+                        <p>{entry.wipes_used}</p>
+                      </div>
+                    );
+                  }
+                })}
               <button className="mt-2 inline-flex items-center px-2 py-1 border border-transparent text-sm font-medium rounded-md shadow-sm text-black bg-white hover:bg-gray-200">
-                <span className="mx-1">Add Entry</span>
+                <Link href="/new-entry">
+                  <span className="mx-1">Add Entry</span>
+                </Link>
               </button>
             </div>
           );

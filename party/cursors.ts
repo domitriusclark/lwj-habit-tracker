@@ -33,14 +33,6 @@ type RemoveMessage = {
 // server.ts
 export default {
   onConnect(websocket, room, { request }) {
-    const country = request.cf?.country ?? null;
-
-    // Stash the country in the websocket attachment
-    websocket.serializeAttachment({
-      ...websocket.deserializeAttachment(),
-      country: country,
-    });
-
     // On connect, send a "sync" message to the new connection
     // Pull the cursor from all websocket attachments, excluding self
     let cursors = <CursorsMap>{};
@@ -63,18 +55,17 @@ export default {
   },
   onMessage(message, websocket, room) {
     const position = JSON.parse(message as string);
-    const attachment = websocket.deserializeAttachment();
+
     const cursor = <Cursor>{
       x: position.x,
       y: position.y,
       pointer: position.pointer,
-      country: attachment.country,
+
       lastUpdate: Date.now(),
     };
 
     // Stash the cursor in the websocket attachment
     websocket.serializeAttachment({
-      ...attachment,
       ...cursor,
     });
 
