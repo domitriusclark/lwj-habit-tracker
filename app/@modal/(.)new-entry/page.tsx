@@ -1,38 +1,10 @@
 import Modal from "./modal";
-
-const days = [
-  "Sunday",
-  "Monday",
-  "Tuesday",
-  "Wednesday",
-  "Thursday",
-  "Friday",
-  "Saturday",
-];
+import NewEntryForm from "../new-entry-form";
 
 export default function NewEntryModal() {
-  const currentTimeStamp = Date.now();
-  const today = days[new Date(currentTimeStamp).getDay()];
-
   return (
     <Modal>
-      <form className="h-full flex flex-col m-10">
-        <>
-          <p>Day of the week: {today}</p>
-        </>
-
-        <>
-          <label htmlFor="">
-            <input name="" />
-          </label>
-        </>
-
-        <>
-          <label>
-            <input />
-          </label>
-        </>
-      </form>
+      <NewEntryForm />
     </Modal>
   );
 }

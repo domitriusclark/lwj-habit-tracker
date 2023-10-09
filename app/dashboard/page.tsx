@@ -63,15 +63,22 @@ export default async function Dashboard() {
                   if (entry.day_of_week === day) {
                     return (
                       <div>
-                        <p>{entry.wipes_used}</p>
+                        <p>Wipes used: {entry.wipes_used}</p>
                       </div>
                     );
                   }
                 })}
-              <button className="mt-2 inline-flex items-center px-2 py-1 border border-transparent text-sm font-medium rounded-md shadow-sm text-black bg-white hover:bg-gray-200">
-                <Link href="/new-entry">
-                  <span className="mx-1">Add Entry</span>
-                </Link>
+              <button
+                disabled={today !== day}
+                className="mt-2 inline-flex items-center px-2 py-1 border border-transparent text-sm font-medium rounded-md shadow-sm text-black bg-white hover:bg-gray-200"
+              >
+                {day === today ? (
+                  <Link href="/new-entry">
+                    <span className="mx-1">Add Entry</span>
+                  </Link>
+                ) : (
+                  "Add Entry"
+                )}
               </button>
             </div>
           );
