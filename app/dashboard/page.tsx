@@ -62,13 +62,13 @@ export default async function Dashboard() {
           const today = days[new Date(currentTimeStamp).getDay()];
 
           return (
-            <div className="p-4 rounded-lg bg-gray-800 text-center">
+            <div key={day} className="p-4 rounded-lg bg-gray-800 text-center">
               <h3 className="text-white">{day}</h3>
               {entries.length > 0 &&
                 entries.map((entry) => {
                   if (entry.day_of_week === day) {
                     return (
-                      <div>
+                      <div key={entry.entry_id}>
                         <p>Wipes used: {entry.wipes_used}</p>
                       </div>
                     );
