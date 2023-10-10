@@ -1,5 +1,5 @@
 import CursorsProvider from "./cursors-provider";
-import Cursors from "./cursors";
+import Cursors from "@/app/(home)/cursors";
 
 export default function HomepageLayout({
   children,

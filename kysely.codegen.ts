@@ -14,7 +14,7 @@ export interface PoopLogEntries {
 }
 
 export interface WipeCount {
-  userId: string;
+  owner_id: string;
   total_wipes: Generated<number | null>;
   last_modified: Generated<Date | null>;
 }

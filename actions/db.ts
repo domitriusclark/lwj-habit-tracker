@@ -2,7 +2,6 @@
 
 import db from "@/lib/database";
 import { currentUser } from "@clerk/nextjs";
-import { RedirectType, redirect } from "next/navigation";
 
 export async function createEntry(formData: FormData) {
   const days = [
@@ -35,16 +34,21 @@ export async function createEntry(formData: FormData) {
   }
 
   try {
-    await db
+    const entry = await db
       .insertInto("poop_log_entries")
       .values({ wipes_used, owner_id: user.id, day_of_week: today as any })
       .execute();
+
+    return {
+      status: "success",
+      msg: "Entry created successfully",
+      entry,
+    };
   } catch (e) {
     console.error(e);
     return {
+      status: "error",
       msg: "Something went wrong, please try again",
     };
   }
-
-  redirect("/dashboard", RedirectType.push);
 }

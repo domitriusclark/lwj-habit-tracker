@@ -4,6 +4,7 @@ import db from "@/lib/database";
 
 import Link from "next/link";
 import SignOutButton from "@/components/sign-out-button";
+import WipeCounter from "./wipe-counter";
 
 const days = [
   "Sunday",
@@ -28,6 +29,14 @@ export default async function Dashboard() {
     .where("owner_id", "=", user.id)
     .execute();
 
+  const packCount = await db
+    .selectFrom("wipe_count")
+    .where("owner_id", "=", user.id)
+    .select("total_wipes")
+    .execute();
+
+  const numberOfWipes = typeof packCount === "number" ? packCount * 30 : 0;
+
   return (
     <div className="flex flex-col pt-10 m-6">
       <div className="flex gap-6 items-center self-end mr-10">
@@ -39,15 +48,12 @@ export default async function Dashboard() {
       </div>
       <section className="mt-6 p-4 rounded-lg bg-gray-800">
         <h2 className="text-xl font-bold mb-4 text-white">Dude Wipe Packs</h2>
-        <div className="flex gap-6 items-center">
-          <span className="text-white">Packages</span>
-          <input
-            className="form-input h-6 w-16 text-white bg-gray-700"
-            type="number"
-          />
-        </div>
+        {typeof packCount === "number" ? (
+          <WipeCounter wipes={packCount} />
+        ) : null}
         <div className="flex gap-6 items-center mt-4">
           <span className="text-white">Pieces per Package</span>
+          {typeof packCount === "number" && numberOfWipes}
         </div>
       </section>
       <div className="grid grid-cols-7 gap-6 mt-5">
