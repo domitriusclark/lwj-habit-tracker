@@ -2,6 +2,7 @@
 
 import db from "@/lib/database";
 import { currentUser } from "@clerk/nextjs";
+import { revalidatePath } from "next/cache";
 
 export async function createEntry(formData: FormData) {
   const days = [
@@ -49,6 +50,39 @@ export async function createEntry(formData: FormData) {
     return {
       status: "error",
       msg: "Something went wrong, please try again",
+    };
+  }
+}
+
+export async function updatePackCount(updatedCount: number) {
+  const user = await currentUser();
+
+  if (!user) {
+    return {
+      error: "You must be logged in to create an entry",
+    };
+  }
+
+  try {
+    const updatedPackCount = await db
+      .updateTable("wipe_count")
+      .set({ total_wipes: updatedCount })
+      .where("owner_id", "=", user.id)
+      .executeTakeFirst();
+
+    revalidatePath("/dashboard");
+
+    return {
+      status: "success",
+      msg: "Count updated successfully",
+    };
+  } catch (e) {
+    console.error(e);
+
+    return {
+      status: "error",
+      msg: "Couldn't update count, please try again",
+      error: e,
     };
   }
 }

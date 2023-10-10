@@ -33,9 +33,38 @@ export default async function Dashboard() {
     .selectFrom("wipe_count")
     .where("owner_id", "=", user.id)
     .select("total_wipes")
-    .execute();
+    .executeTakeFirst();
 
-  const numberOfWipes = typeof packCount === "number" ? packCount * 30 : 0;
+  function sumEntries(entries: any[]): number {
+    let sum = 0;
+    for (const entry of entries) {
+      sum += entry.value;
+    }
+    return sum;
+  }
+
+  const total =
+    packCount &&
+    typeof packCount.total_wipes === "number" &&
+    packCount.total_wipes;
+
+  function calculateTotalWipes() {
+    let totalWipes: number;
+    if (typeof total === "number") {
+      totalWipes = total * 30;
+
+      entries.forEach((entry) => {
+        if (typeof entry.wipes_used === "number") {
+          totalWipes -= entry.wipes_used;
+        }
+      });
+
+      if (totalWipes < 0) {
+        return 0;
+      }
+      return totalWipes;
+    }
+  }
 
   return (
     <div className="flex flex-col pt-10 m-6">
@@ -48,12 +77,17 @@ export default async function Dashboard() {
       </div>
       <section className="mt-6 p-4 rounded-lg bg-gray-800">
         <h2 className="text-xl font-bold mb-4 text-white">Dude Wipe Packs</h2>
-        {typeof packCount === "number" ? (
-          <WipeCounter wipes={packCount} />
+        {typeof total === "number" ? (
+          <WipeCounter wipes={total} sumEntries={sumEntries(entries)} />
         ) : null}
+        {typeof total === "number" && total === 0 && (
+          <div className="flex gap-6 items-center mt-4 text-red">
+            <p>You need to buy new packs!!!</p>
+          </div>
+        )}
         <div className="flex gap-6 items-center mt-4">
           <span className="text-white">Pieces per Package</span>
-          {typeof packCount === "number" && numberOfWipes}
+          {calculateTotalWipes()}
         </div>
       </section>
       <div className="grid grid-cols-7 gap-6 mt-5">
@@ -90,12 +124,6 @@ export default async function Dashboard() {
           );
         })}
       </div>
-      <section className="mt-6 p-4 rounded-lg bg-gray-800">
-        <h2 className="text-xl font-bold mb-4 text-white">Progress Tracker</h2>
-        <div className="h-2 bg-gray-400 rounded">
-          <div className="h-2 bg-white rounded w-1/2" />
-        </div>
-      </section>
     </div>
   );
 }
