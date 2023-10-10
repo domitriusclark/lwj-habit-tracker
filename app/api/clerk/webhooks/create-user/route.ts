@@ -12,14 +12,15 @@ export async function POST(req: Request) {
     });
   }
 
-  db.insertInto("wipe_count")
+  await db
+    .insertInto("wipe_count")
     .values({
       owner_id: data.id,
       total_wipes: 0,
     })
     .execute();
 
-  return new Response("User created in planetscale 🥳", {
+  return new Response("Counter created successfully 🥳", {
     status: 201,
   });
 }
