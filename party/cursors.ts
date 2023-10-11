@@ -7,7 +7,6 @@ export type PartialCursor = {
 };
 
 export type Cursor = PartialCursor & {
-  country: string | null;
   lastUpdate: number;
 };
 
