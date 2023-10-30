@@ -1,10 +1,6 @@
 import { useCursors } from "./cursors-provider";
 import { useLayoutEffect, useRef, useCallback } from "react";
 
-// WARNING
-// Icon is https://github.com/daviddarnes/mac-cursors
-// It is not free: license is the Apple User Agreement
-
 export default function MyCursor() {
   const { myCursor, windowDimensions } = useCursors();
   const fill = "#000";

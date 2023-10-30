@@ -1,14 +1,24 @@
+import Navbar from "@/components/navbar";
 import Link from "next/link";
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24 home">
-      <Link
-        href="/sign-in"
-        className="mt-4 inline-flex items-center px-4 py-2 border border-zinc-200 border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-[#bd1e59] hover:bg-[#9e1650] dark:border-zinc-800"
-      >
-        Sign In
-      </Link>
-    </main>
+    <>
+      <Navbar />
+      <main className="flex min-h-screen flex-col justify-center items-center pb-32 home gap-4">
+        <p className="text-5xl md:text-6xl tracking-tighter pl-10">
+          Never Run Out of Dude Wipes with
+        </p>
+        <p className="text-4xl md:text-5xl bg-zinc-950 text-cyan-300 p-2 md:p-3">
+          Dude, Where's My Wipes?
+        </p>
+        <Link
+          href="/sign-in"
+          className="inline-flex items-center px-24 py-4 mt-4 border border-zinc-200 border-transparent text-lg font-medium rounded-md shadow-sm text-white bg-[#bd1e59] hover:bg-[#9e1650] dark:border-zinc-800"
+        >
+          Get Started
+        </Link>
+      </main>
+    </>
   );
 }

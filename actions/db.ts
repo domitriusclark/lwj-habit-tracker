@@ -35,7 +35,7 @@ export async function createEntry(formData: FormData) {
   }
 
   try {
-    const entry = await db
+    await db
       .insertInto("poop_log_entries")
       .values({ wipes_used, owner_id: user.id, day_of_week: today as any })
       .execute();
@@ -43,7 +43,6 @@ export async function createEntry(formData: FormData) {
     return {
       status: "success",
       msg: "Entry created successfully",
-      entry,
     };
   } catch (e) {
     console.error(e);
@@ -85,4 +84,26 @@ export async function updatePackCount(updatedCount: number) {
       error: e,
     };
   }
+}
+
+export async function deleteEntry(entryId: number) {
+  const user = await currentUser();
+
+  if (!user) {
+    return {
+      error: "You must be logged in to delete an entry",
+    };
+  }
+
+  await db
+    .deleteFrom("poop_log_entries")
+    .where("entry_id", "=", entryId)
+    .executeTakeFirst();
+
+  revalidatePath("/dashboard");
+
+  return {
+    status: "success",
+    msg: "Entry deleted successfully",
+  };
 }

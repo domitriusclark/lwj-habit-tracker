@@ -2,10 +2,10 @@
 import * as React from "react";
 
 import { updatePackCount } from "@/actions/db";
+import { CardStackMinusIcon, CardStackPlusIcon } from "@radix-ui/react-icons";
 
 export default function WipeCounter({
   wipes,
-  sumEntries,
 }: {
   wipes: number;
   sumEntries: number;
@@ -27,10 +27,20 @@ export default function WipeCounter({
   }
 
   return (
-    <div className="flex gap-6 items-center">
+    <div className="flex gap-3 items-center">
       <span className="text-white">{wipes}</span>
-      <button onClick={() => handleAddPack()}>Add Pack</button>
-      <button onClick={() => handleRemovePack()}>Remove Pack</button>
+      <button
+        className="rounded-md px-3 py-2 text-sm font-medium shadow-sm text-white bg-[#bd1e59] hover:bg-[#9e1650] dark:border-zinc-800"
+        onClick={() => handleAddPack()}
+      >
+        <CardStackPlusIcon />
+      </button>
+      <button
+        className="rounded-md px-3 py-2 text-sm font-medium shadow-sm text-white bg-[#bd1e59] hover:bg-[#9e1650] dark:border-zinc-800"
+        onClick={() => handleRemovePack()}
+      >
+        <CardStackMinusIcon />
+      </button>
     </div>
   );
 }

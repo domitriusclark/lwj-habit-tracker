@@ -63,7 +63,7 @@ export default function Modal() {
       <div
         ref={wrapper}
         onClick={(e) => e.stopPropagation()}
-        className="bg-white p-8 rounded-md shadow-lg"
+        className="bg-white h-2/4 w-1/3 rounded-md shadow-lg"
       >
         <NewEntryForm today={today} />
       </div>
@@ -83,10 +83,6 @@ export function NewEntryForm({ today }: { today: string }) {
         if (res.status === "success") {
           router.back();
           router.refresh();
-        }
-
-        if (res.status === "error") {
-          console.log(res.msg);
         }
       }}
     >

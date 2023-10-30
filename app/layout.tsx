@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { ClerkProvider } from "@clerk/nextjs";
 
 export const metadata: Metadata = {
-  title: "Everybody Poops 🚽 Wipe Tracker by Dude Wipes (Not Really)",
+  title: "Dude, Where's My Wipes? | Wipe Tracker by Dude Wipes (Not Really)",
   description:
     "Track your wipes & realize when you need to buy new Dude Wipes 👀",
 };
@@ -18,7 +18,7 @@ export default function RootLayout({
   return (
     <ClerkProvider afterSignInUrl="/dashboard">
       <html lang="en">
-        <body className="overflow-hidden">
+        <body className="overflow-hidden h-[100svh]">
           {children}
           {modal}
         </body>

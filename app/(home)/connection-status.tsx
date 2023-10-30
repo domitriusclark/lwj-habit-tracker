@@ -9,7 +9,7 @@ const readyStates = {
     className: "bg-yellow-500",
   },
   [PartySocket.OPEN]: {
-    text: "Connected",
+    text: "Everybody Poops..Together",
     className: "bg-green-500",
   },
   [PartySocket.CLOSING]: {
@@ -49,11 +49,10 @@ export default function ConnectionStatus(props: {
 
   return (
     <div className="z-20 fixed top-0 sm:top-2 left-0 w-full flex justify-center mt-4">
-      <div className="flex gap-2 justify-center items-center bg-stone-50 rounded-full shadow-md border border-stone-300 px-3 py-1 sm:py-2">
-        <p className="text-xs font-base uppercase tracking-wider leading-none text-stone-500">
+      <div className="flex gap-2 justify-center items-center rounded-full px-3 py-1 sm:py-2">
+        <p className="text-xl font-base uppercase tracking-wider leading-none text-cyan-400">
           {display.text}
         </p>
-        <div className={`w-3 h-3 rounded-full ${display.className}`}></div>
       </div>
     </div>
   );
