@@ -10,7 +10,7 @@ export default function Home() {
           Never Run Out of Dude Wipes with
         </p>
         <p className="text-4xl md:text-5xl bg-zinc-950 text-cyan-300 p-2 md:p-3">
-          Dude, Where'&apos;s My Wipes?
+          Dude, Where&apos;s My Wipes?
         </p>
         <Link
           href="/sign-in"
