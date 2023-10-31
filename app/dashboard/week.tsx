@@ -17,7 +17,8 @@ function Day({
   return (
     <div
       className={`
-      h-full
+      min-h-full
+      overflow-scroll
       bg-white 
       rounded-md 
       flex 
@@ -25,18 +26,17 @@ function Day({
       p-4 
       ${
         active
-          ? "border-4 border-solid border-blue-400"
-          : "border-4 border-gray-400"
-      }
-      ${active ? "opacity-100 text-blue-600" : "opacity-50 text-gray-700"}
+          ? "border-4 border-solid border-blue-400 opacity-100 text-lime-600"
+          : "border-4 border-gray-400 opacity-50 text-gray-700"
+      }      
       transition-all 
       duration-500 
       ease-in-out`}
     >
       {active ? (
-        <div className="flex justify-between w-full">
+        <div className="flex md:justify-between md:items-center flex-col md:flex-row ">
           <h1 className="font-bold">{day}</h1>
-          <button className="rounded-md px-2 py-1 text-sm font-medium shadow-sm text-white bg-[#bd1e59] hover:bg-[#9e1650] dark:border-zinc-800">
+          <button className="rounded-md px-2 py-1 text-sm font-medium shadow-sm text-white bg-cyan-500 hover:bg-cyan-600 dark:border-zinc-800">
             <Link href="/new-entry">
               <span className="mx-1">Add Entry</span>
             </Link>
@@ -46,13 +46,13 @@ function Day({
         <p>{day}</p>
       )}
 
-      <div className="flex gap-3 wrap mt-3">
+      <div className="flex flex-col min-h-full lg:flex-row gap-3 flex-wrap w-full mt-3">
         {entries.length > 0 &&
           entries.map((entry) => {
             if (entry.day_of_week === day) {
               return (
                 <div
-                  className="flex gap-2 items-center max-w-max h-10 rounded-md shadow-lg border-solid border-2 border-slate-900 p-2"
+                  className="flex gap-2 items-center w-full lg:max-w-max h-10 justify-between rounded-md shadow-lg border-solid border-2 border-slate-900 p-2"
                   key={entry.entry_id}
                 >
                   <p>{entry.wipes_used}</p>

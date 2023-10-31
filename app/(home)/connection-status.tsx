@@ -50,7 +50,7 @@ export default function ConnectionStatus(props: {
   return (
     <div className="z-20 fixed top-0 sm:top-2 left-0 w-full flex justify-center mt-4">
       <div className="flex gap-2 justify-center items-center rounded-full px-3 py-1 sm:py-2">
-        <p className="text-xl font-base uppercase tracking-wider leading-none text-cyan-400">
+        <p className="text-xl font-base uppercase tracking-wider leading-none text-lime-600">
           {display.text}
         </p>
       </div>

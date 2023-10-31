@@ -14,7 +14,7 @@ export default function Home() {
         </p>
         <Link
           href="/sign-in"
-          className="inline-flex items-center px-24 py-4 mt-4 border border-zinc-200 border-transparent text-lg font-medium rounded-md shadow-sm text-white bg-[#bd1e59] hover:bg-[#9e1650] dark:border-zinc-800"
+          className="inline-flex items-center px-24 py-4 mt-4 border border-zinc-200 border-transparent text-lg font-medium rounded-md shadow-sm text-white bg-cyan-500 hover:bg-cyan-600 dark:border-zinc-800"
         >
           Get Started
         </Link>

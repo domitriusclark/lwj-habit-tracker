@@ -63,7 +63,7 @@ export default function Modal() {
       <div
         ref={wrapper}
         onClick={(e) => e.stopPropagation()}
-        className="bg-white h-2/4 w-1/3 rounded-md shadow-lg"
+        className="bg-white h-full w-full lg:h-2/4 lg:w-1/3 rounded-md shadow-lg"
       >
         <NewEntryForm today={today} />
       </div>

@@ -63,7 +63,7 @@ export async function updatePackCount(updatedCount: number) {
   }
 
   try {
-    const updatedPackCount = await db
+    await db
       .updateTable("wipe_count")
       .set({ total_wipes: updatedCount })
       .where("owner_id", "=", user.id)
