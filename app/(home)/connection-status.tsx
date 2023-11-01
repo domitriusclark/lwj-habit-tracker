@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import PartySocket from "partysocket";
+import { useCursors } from "./cursors-provider";
 
 const readyStates = {
   [PartySocket.CONNECTING]: {
@@ -26,6 +27,10 @@ export default function ConnectionStatus(props: {
   socket: PartySocket | WebSocket | null;
 }) {
   const { socket } = props;
+  const { others, myCursor } = useCursors();
+
+  const count = Object.keys(others).length + (myCursor ? 1 : 0);
+
   const [readyState, setReadyState] = useState<number>(
     socket?.readyState === 1 ? 1 : 0
   );
@@ -51,7 +56,9 @@ export default function ConnectionStatus(props: {
     <div className="z-20 fixed top-0 sm:top-2 left-0 w-full flex justify-center mt-4">
       <div className="flex gap-2 justify-center items-center rounded-full px-3 py-1 sm:py-2">
         <p className="text-xl font-base uppercase tracking-wider leading-none text-lime-600">
-          {display.text}
+          {count > 1
+            ? `${display.text} (${count})`
+            : "Pooping alone is cool too"}
         </p>
       </div>
     </div>

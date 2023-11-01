@@ -8,18 +8,20 @@ import Link from "next/link";
 function Day({
   day,
   active,
+  index,
   entries,
 }: {
   day: string;
+  index: number;
   active: boolean;
   entries: Selectable<PoopLogEntries>[];
 }) {
   return (
     <div
       className={`
-      min-h-full
-      overflow-scroll
+      h-full
       bg-white 
+      overflow-y-scroll
       rounded-md 
       flex 
       flex-col
@@ -30,6 +32,7 @@ function Day({
           : "border-4 border-gray-400 opacity-50 text-gray-700"
       }      
       transition-all 
+      ${index === 3 || index === 6 ? "col-span-2" : ""}
       duration-500 
       ease-in-out`}
     >
@@ -46,7 +49,7 @@ function Day({
         <p>{day}</p>
       )}
 
-      <div className="flex flex-col min-h-full lg:flex-row gap-3 flex-wrap w-full mt-3">
+      <div className="flex flex-col lg:flex-row gap-3 flex-wrap w-full mt-3">
         {entries.length > 0 &&
           entries.map((entry) => {
             if (entry.day_of_week === day) {
@@ -82,16 +85,11 @@ function Week({ entries }: { entries: Selectable<PoopLogEntries>[] }) {
   const currentDay = days[currentDate.getDay()];
 
   const renderDays = days.map((day, idx) => (
-    <div
-      key={day}
-      className={`w-full h-full ${idx === 3 || idx === 6 ? "col-span-2" : ""} `}
-    >
-      <Day entries={entries} day={day} active={day === currentDay} />
-    </div>
+    <Day index={idx} entries={entries} day={day} active={day === currentDay} />
   ));
 
   return (
-    <div className="grid auto-rows-fr grid-cols-3 grow w-full md:w-2/3 gap-2 ">
+    <div className="grid h-full grid-rows-3 grid-cols-3 w-full md:w-2/3 gap-2 ">
       {renderDays}
     </div>
   );
