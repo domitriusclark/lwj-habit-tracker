@@ -85,7 +85,13 @@ function Week({ entries }: { entries: Selectable<PoopLogEntries>[] }) {
   const currentDay = days[currentDate.getDay()];
 
   const renderDays = days.map((day, idx) => (
-    <Day index={idx} entries={entries} day={day} active={day === currentDay} />
+    <Day
+      key={day}
+      index={idx}
+      entries={entries}
+      day={day}
+      active={day === currentDay}
+    />
   ));
 
   return (
